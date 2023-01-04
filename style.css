@@ -1,0 +1,52 @@
+html {
+    background-color: #141414;
+    height: 100vh;
+}
+body {
+    color: white;
+    font-family: sans-serif;
+    margin: 0 auto;
+    min-height: 100%;
+    overflow: auto;
+    padding: 0.5em 0.7em;
+    box-sizing: border-box;
+}
+body {
+    width: 768px;
+    max-width: 100%;
+}
+*:focus {
+    outline-color: blue;
+}
+label {
+    display: block;
+}
+input[type="button"] {
+    background: inherit;
+    color: inherit;
+    border: 2px solid currentColor;
+    font: inherit;
+    margin: 0.2em;
+    padding: 0.2em 0.7em;
+    border-radius: 6px;
+}
+input[type="button"]:hover {
+    background: #404040;
+}
+input[type="button"]:active {
+    background: #808080;
+}
+input[type="button"]:focus {
+    outline-offset: 3px;
+}
+
+/* #status-box
+{
+  display: block;
+  border: 2px solid;
+  padding: 0.625em;
+  padding-top: 0.75em;
+  padding-left: 2.125em;
+  border-radius: 0.5em;
+  margin: 1em 0;
+} */

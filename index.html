@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Alpha Hypixel Network Status</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#e4e4e4">
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js" defer></script>
+	<script src="discord-webhook.js" defer></script>
+	<noscript><style>#status-box { display: none; }</style></noscript>
+</head>
+
+<body>
+	<div>
+		<h1 style="margin-top: 0.1em; margin-bottom: 0;">
+			Alpha Hypixel Network Status: <span id="status-with-slash">--/--</span>
+		</h1>
+		<div>
+			<body>
+				<div id="status-box">
+					<p><span id="status-message">Attempting to ping the ''Alpha Hypixel Network'' server...</span></p>
+				</div>
+				<p id="popup-button-container"><input type="button" value="Open in Popup Window" onclick="openPopup()"></p>
+				<noscript><p>JavaScript must be enabled for this page to work.</p></noscript>
+			</body>
+		</div>
+	</div>
+</body>
+</html>
