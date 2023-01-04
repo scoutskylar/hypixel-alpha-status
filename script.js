@@ -34,7 +34,7 @@ async function updateMessage() {
     var alphaStatus = await fetchAlphaStatus();
     console.log(alphaStatus);
     document.getElementById('status-with-slash').innerText = alphaStatus.online + '/' + alphaStatus.max;
-    document.getElementById('status-message').innerHTML = generateMessage(alphaStatus.max, alphaStatus.online);
+    document.getElementById('alpha-status-message').innerHTML = generateMessage(alphaStatus.max, alphaStatus.online);
 }
 
 function stop() {
@@ -48,7 +48,7 @@ function start() {
 }
 
 function openPopup() {
-    window.open(window.location.origin + window.location.pathname + '?popup', '_blank', 'menubar=no,width=640px,height=150px');
+    window.open(window.location.origin + window.location.pathname + '?popup', '_blank', 'menubar=no,width=640px,height=170px');
 }
 
 if (window.location.search.match(/[?&]popup/)) {

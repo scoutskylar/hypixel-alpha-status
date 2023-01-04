@@ -39,14 +39,3 @@ input[type="button"]:active {
 input[type="button"]:focus {
     outline-offset: 3px;
 }
-
-/* #status-box
-{
-  display: block;
-  border: 2px solid;
-  padding: 0.625em;
-  padding-top: 0.75em;
-  padding-left: 2.125em;
-  border-radius: 0.5em;
-  margin: 1em 0;
-} */
