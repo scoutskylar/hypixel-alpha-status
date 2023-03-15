@@ -20,7 +20,7 @@ function generateMessage(max, online) {
         statusCode = 0;
     } else if (online >= 50) {
         statusCode = 3;
-    } else if (max > 50) {
+    } else if (max > 60) {
         if (online >= 20) {
             statusCode = 3;
         } else if (oldStatusCode !== 3) {
