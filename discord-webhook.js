@@ -48,7 +48,7 @@ function sendPlainWebhookMessage(message) {
 {
     // clear local storage when the query parameter `clear-local-storage` exists
     let q = new URLSearchParams(location.search);
-    if (q.get('clear-local-storage') !== undefined) {
+    if (q.get('clear-local-storage') !== null) {
         localStorage.clear();
         q.delete('clear-local-storage');
         history.replaceState(null, '', location.origin + location.pathname + (q.toString() ? '?' + q.toString() : '') + location.hash);
