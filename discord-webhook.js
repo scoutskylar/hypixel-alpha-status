@@ -45,6 +45,33 @@ function sendPlainWebhookMessage(message) {
     }
 }
 
-if (webhook_URL_1) {
-    document.getElementById('webhook-status-message').innerHTML = 'Discord webhook ready';
+{
+    // clear local storage when the query parameter `clear-local-storage` exists
+    let q = new URLSearchParams(location.search);
+    if (q.get('clear-local-storage') !== undefined) {
+        localStorage.clear();
+        q.delete('clear-local-storage');
+        history.replaceState(null, '', location.origin + location.pathname + (q.toString() ? '?' + q.toString() : '') + location.hash);
+    }
+}
+
+{
+    // save the webhook URL from the query parameter to local storage
+    let q = new URLSearchParams(location.search);
+    let webhookString = q.get('set-webhook')?.match(/^(?:https:\/\/discord.com\/api\/webhooks\/)?(\d+\/[^/]+)\/?$/)?.[1];
+    if (webhookString) {
+        localStorage.setItem('hypixel-alpha-status/webhook', webhookString);
+        q.delete('set-webhook');
+        history.replaceState(null, '', location.origin + location.pathname + (q.toString() ? '?' + q.toString() : '') + location.hash);
+    }
+}
+
+{
+    // get webhook URL from local storage
+    let webhookString = localStorage.getItem('hypixel-alpha-status/webhook');
+    if (webhookString && webhookString.match(/^\d+\/[^/]+$/)) webhook_URL_1 = 'https://discord.com/api/webhooks/' + webhookString;
+}
+
+if (webhook_URL_1 || webhook_URL_2) {
+    document.getElementById('webhook-status-icon').style.display = '';
 }
