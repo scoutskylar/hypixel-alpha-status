@@ -6,7 +6,6 @@ const statusNames = ['closed', 'unknown', 'maybe open', 'open'];
 
 var intervalID = 0;
 var prevData = {};
-var connected = true; // stores whether the browser client had a network connection at the last check
 
 async function fetchAlphaData() {
     return await fetch(pingEndpointURL).then(response => response.json());
@@ -40,16 +39,21 @@ function generateMessage(max, online, timestamp) {
     ][statusCode];
 }
 
-function checkConnection() {
-    if (window.navigator.onLine != connected) {
-        console.log(`[${new Date().toLocaleString()}] Network connection ${connected ? 'lost' : 'restored'}`);
-        document.getElementById('internet-status-message').innerHTML = connected ? '<span style="color: #FF8888;">🗙 No Network Connection</span>' : '';
-    }
-    return connected = window.navigator.onLine;
+function onConnectionLost(e) {
+    document.getElementById('internet-status-message').innerHTML = '<span style="color: #FF8888;">You are not connected to the internet.</span>';
+    console.log(`[${new Date().toLocaleString()}] Network connection lost`);
+    stop();
 }
+window.addEventListener('offline', onConnectionLost);
+
+function onConnectionRestored(e) {
+    document.getElementById('internet-status-message').innerHTML = '';
+    console.log(`[${new Date().toLocaleString()}] Network connection restored`);
+    restart();
+}
+window.addEventListener('online', onConnectionRestored);
 
 async function updateMessage() {
-    if (!checkConnection()) return;
     var alphaStatus = await fetchAlphaData();
     console.log(`[${new Date(alphaStatus.timestampMilliseconds).toLocaleString()}] ${alphaStatus.online}/${alphaStatus.max}`);
     // CSV style: `${new Date(alphaStatus.timestampMilliseconds).toISOString()},${alphaStatus.online},${alphaStatus.max}`
@@ -69,12 +73,11 @@ function restart(status) {
 }
 
 function openPopup() {
-    window.open(window.location.origin + window.location.pathname + '?popup', '_blank', 'menubar=no,width=640px,height=170px');
+    window.open(window.location.href, '_blank', 'menubar=no,width=640px,height=170px');
 }
 
-if (window.location.search.match(/[?&]popup/)) {
-    document.getElementById('popup-button-container').style.display = 'none';
+if (window.navigator.onLine) restart();
+else {
+    document.getElementById('alpha-status-message').innerHTML = '';
+    onConnectionLost();
 }
-
-if (!checkConnection()) document.getElementById('alpha-status-message').innerHTML = '';
-restart();

@@ -1,14 +1,13 @@
-// const webhookURL = ''; // redacted for the public repository, of course
-const webhookURL = 'https://discord.com/api/webhooks/1060046724925751376/G6aaFc90JXj1_tFIaoFPbY9U8MfvecaM-zjZA7_tA41MEBz7MoDZL8J4LhJELuxfgz4K';
-const webhookURL_wiki = '';
+var webhook_URL_1 = webhook_URL_1 || '';
+var webhook_URL_2 = webhook_URL_2 || '';
 const webhookUsername = "scoutskylar's Alpha Webhook";
 
 // adapted from https://dev.to/oskarcodes/send-automated-discord-messages-through-webhooks-using-javascript-1p01
 function sendWebhookMessage(title, message, color = 5814783) {
-    if (!webhookURL) return;
+    if (!webhook_URL_1) return;
     
     const request = new XMLHttpRequest();
-    request.open("POST", webhookURL);
+    request.open("POST", webhook_URL_1);
     request.setRequestHeader('Content-type', 'application/json');
     request.send(JSON.stringify({
         "content": null,
@@ -31,21 +30,21 @@ function sendWebhookMessage(title, message, color = 5814783) {
 }
 
 function sendPlainWebhookMessage(message) {
-    if (!webhookURL) return;
-    
-    const request = new XMLHttpRequest();
-    request.open("POST", webhookURL);
-    request.setRequestHeader('Content-type', 'application/json');
-    request.send(JSON.stringify({ "content": message, "username": webhookUsername }));
-
-    if (webhookURL_wiki) {
+    if (webhook_URL_1) {
         const request = new XMLHttpRequest();
-        request.open("POST", webhookURL_wiki);
+        request.open("POST", webhook_URL_1);
+        request.setRequestHeader('Content-type', 'application/json');
+        request.send(JSON.stringify({ "content": message, "username": webhookUsername }));
+    }
+
+    if (webhook_URL_2) {
+        const request = new XMLHttpRequest();
+        request.open("POST", webhook_URL_2);
         request.setRequestHeader('Content-type', 'application/json');
         request.send(JSON.stringify({ "content": message, "username": webhookUsername }));
     }
 }
 
-if (webhookURL) {
-    document.getElementById('webhook-status-message').innerHTML = '<span style="color: #55FF55;">» Discord Webhook Active</span>';
+if (webhook_URL_1) {
+    document.getElementById('webhook-status-message').innerHTML = 'Discord webhook ready';
 }
